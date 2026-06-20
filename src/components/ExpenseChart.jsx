@@ -5,7 +5,7 @@ import {
   Legend,
 } from "chart.js";
 
-import { Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 
 ChartJS.register(
   ArcElement,
@@ -23,24 +23,35 @@ function ExpenseChart({ transactions }) {
     .reduce((sum, t) => sum + t.amount, 0);
 
   const data = {
-  labels: ["💰 Income", "💸 Expense"],
-  datasets: [
-    {
-      data: [income, expense],
-      backgroundColor: [
-        "#22c55e", // Green
-        "#ef4444", // Red
-      ],
-      borderColor: "#ffffff",
-      borderWidth: 3,
-    },
-  ],
-};
+    labels: ["💰 Income", "💸 Expense"],
+    datasets: [
+      {
+        data: [income, expense],
+        backgroundColor: [
+          "#22c55e",
+          "#ef4444",
+        ],
+        borderColor: "#ffffff",
+        borderWidth: 3,
+      },
+    ],
+  };
 
   return (
-    <div className="card">
-      <h2>Expense Chart</h2>
-      <Pie data={data} />
+    <div className="card chart-container">
+      <h2>📊 Income vs Expense</h2>
+
+      <Doughnut
+        data={data}
+        options={{
+          cutout: "60%",
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
+          },
+        }}
+      />
     </div>
   );
 }
