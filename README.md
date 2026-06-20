@@ -8,7 +8,7 @@ A modern and responsive financial management application built using React.js, F
 
 🔗 Live Application: [https://expense-tracker-with-budget-insight-green.vercel.app/]
 
-🔗 GitHub Repository: [Add Your GitHub Repository Link Here]
+🔗 GitHub Repository: [https://github.com/Raghav335/Expense-Tracker-with-Budget-Insights]
 
 ---
 
