@@ -43,13 +43,12 @@ The application provides real-time financial insights using interactive charts, 
 
 ---
 
-## 🌙 Dashboard (Dark Mode)
-
+## 🌙 Dashboard (Dark Mode) & Transaction
 ![Dashboard Dark](screenshots/dashboard-dark.png)
 
 ---
 
-## 📈 Analytics & Transactions
+## 📈 Analytics 
 
 ![Analytics](screenshots/analytics.png)
 
