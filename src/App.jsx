@@ -8,163 +8,167 @@ import autoTable from "jspdf-autotable";
 import "./App.css";
 
 function App() {
-  const [transactions, setTransactions] = useState(() => {
-    const saved = localStorage.getItem("transactions");
-    return saved ? JSON.parse(saved) : [];
-  });
+const [transactions, setTransactions] = useState(() => {
+const saved = localStorage.getItem("transactions");
+return saved ? JSON.parse(saved) : [];
+});
 
-  const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState("all");
+const [search, setSearch] = useState("");
+const [filter, setFilter] = useState("all");
 
-  useEffect(() => {
-    localStorage.setItem(
-      "transactions",
-      JSON.stringify(transactions)
-    );
-  }, [transactions]);
+useEffect(() => {
+localStorage.setItem(
+"transactions",
+JSON.stringify(transactions)
+);
+}, [transactions]);
 
-  const addTransaction = (transaction) => {
-    setTransactions([...transactions, transaction]);
-  };
+const addTransaction = (transaction) => {
+setTransactions([...transactions, transaction]);
+};
 
-  const deleteTransaction = (index) => {
-    const updated = transactions.filter(
-      (_, i) => i !== index
-    );
-    setTransactions(updated);
-  };
+const deleteTransaction = (index) => {
+const updated = transactions.filter(
+(_, i) => i !== index
+);
+setTransactions(updated);
+};
 
-  const filteredTransactions = transactions.filter(
-    (item) => {
-      const matchesSearch = item.title
-        .toLowerCase()
-        .includes(search.toLowerCase());
+const filteredTransactions = transactions.filter(
+(item) => {
+const matchesSearch = item.title
+.toLowerCase()
+.includes(search.toLowerCase());
 
-      const matchesFilter =
-        filter === "all"
-          ? true
-          : item.type === filter;
+const matchesFilter =  
+    filter === "all"  
+      ? true  
+      : item.type === filter;  
 
-      return matchesSearch && matchesFilter;
-    }
-  );
+  return matchesSearch && matchesFilter;  
+}
 
-  const exportCSV = () => {
-    const rows = [
-      ["Title", "Amount", "Type", "Date"],
-      ...transactions.map((t) => [
-        t.title,
-        t.amount,
-        t.type,
-        t.date,
-      ]),
-    ];
+);
 
-    const csvContent = rows
-      .map((row) => row.join(","))
-      .join("\n");
+const exportCSV = () => {
+const rows = [
+["Title", "Amount", "Type", "Date"],
+...transactions.map((t) => [
+t.title,
+t.amount,
+t.type,
+t.date,
+]),
+];
 
-    const blob = new Blob(
-      [csvContent],
-      { type: "text/csv" }
-    );
+const csvContent = rows  
+  .map((row) => row.join(","))  
+  .join("\n");  
 
-    const url =
-      window.URL.createObjectURL(blob);
+const blob = new Blob(  
+  [csvContent],  
+  { type: "text/csv" }  
+);  
 
-    const a = document.createElement("a");
+const url =  
+  window.URL.createObjectURL(blob);  
 
-    a.href = url;
-    a.download = "transactions.csv";
-    a.click();
-  };
+const a = document.createElement("a");  
 
-  const downloadPDF = () => {
-    const doc = new jsPDF();
+a.href = url;  
+a.download = "transactions.csv";  
+a.click();
 
-    doc.text(
-      "Expense Tracker Report",
-      20,
-      20
-    );
+};
 
-    autoTable(doc, {
-      head: [["Title", "Amount", "Type", "Date"]],
-      body: transactions.map((t) => [
-        t.title,
-        t.amount,
-        t.type,
-        t.date,
-      ]),
-    });
+const downloadPDF = () => {
+const doc = new jsPDF();
 
-    doc.save("Expense_Report.pdf");
-  };
+doc.text(  
+  "Expense Tracker Report",  
+  20,  
+  20  
+);  
 
-  return (
-    <div className="container">
-      <h1>💰 Expense Tracker Dashboard</h1>
+autoTable(doc, {  
+  head: [["Title", "Amount", "Type", "Date"]],  
+  body: transactions.map((t) => [  
+    t.title,  
+    t.amount,  
+    t.type,  
+    t.date,  
+  ]),  
+});  
 
-      <Summary transactions={transactions} />
+doc.save("Expense_Report.pdf");
 
-      <div className="card">
-        <button onClick={exportCSV}>
-          📥 Export CSV
-        </button>
+};
 
-        <button
-          onClick={downloadPDF}
-          style={{ marginLeft: "10px" }}
-        >
-          📄 Download PDF
-        </button>
-      </div>
+return (
+<div className="container">
+<h1>💰 Expense Tracker Dashboard</h1>
 
-      <ExpenseForm
-        addTransaction={addTransaction}
-      />
+<Summary transactions={transactions} />  
 
-      <div className="card">
-        <input
-          type="text"
-          placeholder="🔍 Search Transaction"
-          value={search}
-          onChange={(e) =>
-            setSearch(e.target.value)
-          }
-        />
+  <div className="card">  
+    <button onClick={exportCSV}>  
+      📥 Export CSV  
+    </button>  
 
-        <br />
-        <br />
+    <button  
+      onClick={downloadPDF}  
+      style={{ marginLeft: "10px" }}  
+    >  
+      📄 Download PDF  
+    </button>  
+  </div>  
 
-        <select
-          value={filter}
-          onChange={(e) =>
-            setFilter(e.target.value)
-          }
-        >
-          <option value="all">All</option>
-          <option value="income">
-            Income
-          </option>
-          <option value="expense">
-            Expense
-          </option>
-        </select>
-      </div>
+  <ExpenseForm  
+    addTransaction={addTransaction}  
+  />  
 
-      <ExpenseChart
-        transactions={transactions}
-      />
+  <div className="card">  
+    <input  
+      type="text"  
+      placeholder="🔍 Search Transaction"  
+      value={search}  
+      onChange={(e) =>  
+        setSearch(e.target.value)  
+      }  
+    />  
 
-      <ExpenseList
-        transactions={filteredTransactions}
-        deleteTransaction={
-          deleteTransaction
-        }
-      />
-    </div>
-  );
+    <br />  
+    <br />  
+
+    <select  
+      value={filter}  
+      onChange={(e) =>  
+        setFilter(e.target.value)  
+      }  
+    >  
+      <option value="all">All</option>  
+      <option value="income">  
+        Income  
+      </option>  
+      <option value="expense">  
+        Expense  
+      </option>  
+    </select>  
+  </div>  
+
+  <ExpenseChart  
+    transactions={transactions}  
+  />  
+
+  <ExpenseList  
+    transactions={filteredTransactions}  
+    deleteTransaction={  
+      deleteTransaction  
+    }  
+  />  
+</div>
+
+);
 }
 
 export default App;
