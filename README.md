@@ -278,6 +278,7 @@ Examples:
 - AI Expense Prediction
 
 ---
+# Project Live:https://expense-tracker-with-budget-insight-green.vercel.app/
 
 # 👨‍💻 Developer
 
@@ -293,7 +294,7 @@ https://github.com/Raghav335
 
 ### 💼 LinkedIn
 
-(Add Your LinkedIn Profile)
+(https://www.linkedin.com/in/raghav-gupta-8a9152328?utm_source=share_via&utm_content=profile&utm_medium=member_android)
 
 ---
 
@@ -305,6 +306,4 @@ It motivates me to build more amazing open-source projects.
 
 ---
 
-# ❤️ Made with Love by
-
-# **Raghav Gupta**
+# ❤️ Made by # **Raghav Gupta**
